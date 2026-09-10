@@ -1,0 +1,13 @@
+<script>function getCookie(name) {
+  const cookies = document.cookie.split('; ');
+  for (const cookie of cookies) {
+    const [key, ...rest] = cookie.split('=');
+    if (key === name) {
+      return decodeURIComponent(rest.join('='));
+    }
+  }
+  return null;
+}
+
+document.write(getCookie('im_id'));
+</script>
