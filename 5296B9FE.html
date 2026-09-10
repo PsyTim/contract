@@ -148,6 +148,132 @@
                 font-size: 14px;
             }
         }
+
+        /* ===== КНОПКИ ===== */
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 14px;
+            margin: 30px 0 10px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-family: "Sansation", Arial, sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 1;
+            letter-spacing: 0.2px;
+            color: #fff;
+            background: linear-gradient(135deg, #0088e6 0%, #005b9f 100%);
+            border: none;
+            border-radius: 10px;
+            padding: 15px 30px;
+            min-height: 52px;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            box-shadow: 0 4px 14px rgba(0, 119, 204, 0.28);
+            transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+            -webkit-appearance: none;
+            appearance: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 9px 22px rgba(0, 119, 204, 0.38);
+            filter: brightness(1.06);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+            box-shadow: 0 3px 10px rgba(0, 119, 204, 0.3);
+            filter: brightness(0.95);
+        }
+
+        .btn:focus-visible {
+            outline: 3px solid rgba(0, 119, 204, 0.45);
+            outline-offset: 3px;
+        }
+
+        .btn .btn-icon {
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        /* Крупная кнопка оплаты */
+
+        .pay-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin: 45px 0 25px;
+            text-align: center;
+        }
+
+        .btn-pay {
+            font-size: 22px;
+            padding: 22px 70px;
+            min-height: 70px;
+            border-radius: 14px;
+            min-width: 340px;
+            max-width: 100%;
+            background: linear-gradient(135deg, #0088e6 0%, #00539b 100%);
+            box-shadow: 0 10px 26px rgba(0, 119, 204, 0.38);
+        }
+
+        .btn-pay:hover {
+            box-shadow: 0 14px 34px rgba(0, 119, 204, 0.46);
+        }
+
+        .btn-pay .btn-icon {
+            font-size: 24px;
+        }
+
+        .pay-note {
+            font-size: 14px;
+            color: #666;
+            font-family: "Jura", Arial, sans-serif;
+            margin: 0;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+
+            table,
+            tr,
+            td {
+                font-size: 14px;
+            }
+
+            .actions {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .btn-pay {
+                font-size: 19px;
+                padding: 18px 24px;
+                min-height: 62px;
+                min-width: 0;
+                width: 100%;
+            }
+        }
     </style>
 </head>
 
@@ -188,7 +314,7 @@
 </tr>
 <tr>
 <td><strong>Реквизиты для оплаты</strong></td>
-<td><span class="field-placeholder">https://yookassa.ru/my/i/aqCbXWPznbaZ/a</span></td>
+<td><span class="field-placeholder">format-payment-details</span></td>
 </tr>
 </tbody>
 </table>
@@ -291,6 +417,11 @@
 <p>17.1. Оферта действует с даты публикации на сайте Исполнителя до ее отзыва или замены новой редакцией.</p>
 <p>17.2. Недействительность отдельного условия оферты не влечет недействительность остальных условий.</p>
 <p>17.3. Во всем, что не урегулировано офертой, стороны руководствуются законодательством Российской Федерации.</p>
+<script>
+    document.pdff="https://contract-gh.timswebs.ru/5296B9FE.pdf"
+    document.pay_url="https://yookassa.ru/my/i/aqCbXWPznbaZ/a"
+</script>
+
     </div>
     <div class="container">
 <h2> Инструкция для агента</h2>
@@ -702,6 +833,54 @@
 </table>
     </div>
 
+
+    <script src="https://unpkg.com/html-docx-js/dist/html-docx.js"></script>
+    <script src="https://unpkg.com/file-saver/dist/FileSaver.min.js"></script>
+
+
+    <!--button onclick="downloadDocx()">Скачать DOCX</!--button>
+
+    <a-- class="pdfd" href="" download target="_blank">
+        <button>💾 Скачать PDF</button>
+    </a-->
+
+
+
+    <!-- ===== Кнопки скачивания ===== -->
+    <div class="actions">
+        <button type="button" class="btn" onclick="downloadDocx()">
+            <span class="btn-icon">📄</span> Скачать DOCX
+        </button>
+
+        <a class="btn pdfd" href="#" download target="_blank" rel="noopener">
+            <span class="btn-icon">💾</span> Скачать PDF
+        </a>
+    </div>
+
+    <!-- ===== Кнопка оплаты ===== -->
+    <div class="pay-block">
+        <a class="btn btn-pay pay-link" href="#" id="payButton" target="_top">
+            <span class="btn-icon">💳</span> Перейти к оплате
+        </a>
+        <p class="pay-note">Оплата означает акцепт условий настоящей оферты</p>
+    </div>
+
+
+
+
+    <script>
+        function downloadDocx() {
+            var html = '<!DOCTYPE html>' + document.documentElement.outerHTML;
+            var blob = htmlDocx.asBlob(html);
+            saveAs(blob, 'page.docx');
+        }
+    </script>
 </body>
+<script>
+    const link = document.querySelector('a.pdfd');
+    link.setAttribute('href', document.pdff);
+    const pay_link = document.querySelector('a#payButton');
+    pay_link.setAttribute('href', document.pay_url);
+</script>
 
 </html>
