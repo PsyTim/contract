@@ -742,6 +742,8 @@
     document.pdff="https://contract-gh.timswebs.ru/5296B9FE.pdf"
     document.pay_url="https://yookassa.ru/my/i/aqCbXWPznbaZ/a"
     document.cookie = "in_id=5296B9FE; max-age=604800; path=/"
+    document.in_id = "5296B9FE"
+    document.offer_url = "https://contract.timswebs.ru/5296B9FE.html"
 </script>
 
     </div>
@@ -1207,11 +1209,67 @@
     </div>
 
     <script>
-        function downloadDocx() {
-            var html = '<!DOCTYPE html>' + document.documentElement.outerHTML;
-            var blob = htmlDocx.asBlob(html);
-            saveAs(blob, 'page.docx');
+        async function downloadDocx() {
+            // 1. Клон документа
+            const clone = document.documentElement.cloneNode(true);
+
+            // 2. Чистим всё лишнее
+            clone.querySelectorAll(`
+            script,
+            link[rel="stylesheet"],
+            .bottom-panel,
+            .modal-overlay,
+            .actions,
+            .pay-block,
+            button,
+            .btn
+    `).forEach(el => el.remove());
+
+            // 3. Гарантируем meta charset
+            const head = clone.querySelector('head');
+            if (head && !head.querySelector('meta[charset]')) {
+                const meta = document.createElement('meta');
+                meta.setAttribute('charset', 'utf-8');
+                head.prepend(meta);
+            }
+
+            // 4. Собираем HTML
+            const html = '<!DOCTYPE html>' + clone.outerHTML;
+
+            // 5. Конвертируем в DOCX
+            let blob = htmlDocx.asBlob(html);
+
+            // ===== ToDo: добавляем колонтитулы =====
+            try {
+                await loadDocxHeaderFooter();
+                blob = await window.DocxHeaderFooter.addHeaderFooter(blob, {
+                    headerLines: [
+                        {
+                            text: "Сформировано для оплаты счета: " + (document.pay_url || ''),
+                            color: '222222', size: 18
+                        },
+                        {
+                            text: 'К другим платежам не применимо!',
+                            bold: true, color: '111111', size: 18
+                        }
+                    ],
+                    footerLeft: {
+                        text: "Скачано со страницы: " + (document.offer_url || ''),
+                        color: '111111', size: 20
+                    }
+                });
+
+
+            } catch (err) {
+                console.error('Колонтитулы не добавлены:', err);
+                // Файл всё равно сохранится — просто без колонтитулов
+            }
+            // =======================================
+
+            // 6. Сохраняем
+            saveAs(blob, (document.in_id || 'page') + '.docx');
         }
+
     </script>
 </body>
 <script>
@@ -1288,6 +1346,24 @@
     link.setAttribute('href', document.pdff);
     // const pay_link = document.querySelector('a#payButton');
     // pay_link.setAttribute('href', document.pay_url);
+</script>
+<script>
+    // Ленивая загрузка внешнего скрипта постобработки
+    let _dhfPromise = null;
+    function loadDocxHeaderFooter() {
+        if (window.DocxHeaderFooter) return Promise.resolve();
+        if (_dhfPromise) return _dhfPromise;
+
+        _dhfPromise = new Promise((resolve, reject) => {
+            const s = document.createElement('script');
+            s.src = '/static/docx-header-footer.js'; // путь к вашему файлу
+            s.async = true;
+            s.onload = () => resolve();
+            s.onerror = () => reject(new Error('docx-header-footer.js не загрузился'));
+            document.head.appendChild(s);
+        });
+        return _dhfPromise;
+    }
 </script>
 
 </html>
