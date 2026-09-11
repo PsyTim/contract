@@ -9,11 +9,17 @@
         @import url('https://fonts.googleapis.com/css2?family=Jura:wght@300..700&family=Sansation:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
     </style>
     <style>
+        html,
+        body {
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+
         body {
             font-family: "Jura", Arial, sans-serif;
             line-height: 1.6;
             font-size: 105%;
-            max-width: 1000px;
+            /*max-width: 1000px;*/
             font-weight: 600;
             margin: 40px auto;
             padding: 0 20px 200px;
@@ -333,11 +339,11 @@
             }
 
             .bottom-panel {
-                left: 0;
+                /*left: 0;*/
                 bottom: 0;
-                transform: none;
+                /*transform: none;*/
                 width: 100%;
-                max-width: 100%;
+                /*max-width: 100%;*/
                 padding: 14px 14px calc(14px + env(safe-area-inset-bottom, 0px));
                 border-radius: 24px 24px 0 0;
             }
@@ -350,14 +356,20 @@
         /* ===== Фиксированная нижняя панель ===== */
         .bottom-panel {
             position: fixed;
-            left: 50%;
+            left: 0;
+            right: 0;
             bottom: 8px;
-            transform: translateX(-50%);
+            margin-inline: auto;
+            /* центрирование без transform */
+            max-width: calc(100% - 32px);
+            /* 100%, а не 100vw — без учёта скроллбара */
+
+            /*transform: translateX(-50%);*/
             z-index: 1000;
 
             /* размер по содержимому */
             width: max-content;
-            max-width: calc(100vw - 32px);
+            /*max-width: calc(100vw - 32px);*/
             box-sizing: border-box;
 
             display: flex;
