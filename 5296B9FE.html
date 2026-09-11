@@ -16,7 +16,7 @@
             max-width: 1000px;
             font-weight: 600;
             margin: 40px auto;
-            padding: 0 20px;
+            padding: 0 20px 200px;
             background: #f9f9f9;
             color: #222;
         }
@@ -87,6 +87,7 @@
             margin-bottom: 6px;
         }
 
+        /*
         .checkbox-group {
             margin: 20px 0;
         }
@@ -100,7 +101,7 @@
         .checkbox-group input[type="checkbox"] {
             margin-right: 8px;
         }
-
+*/
         .field-placeholder {
             color: #555;
             background: #f4f4f4;
@@ -110,6 +111,7 @@
             font-size: 14px;
         }
 
+        /*
         .signature-block {
             margin-top: 25px;
             border-top: 1px dashed #aaa;
@@ -120,7 +122,7 @@
             margin: 10px 0;
             font-size: 15px;
         }
-
+*/
         .signature-line span {
             display: inline-block;
             width: 200px;
@@ -128,6 +130,7 @@
             margin-left: 10px;
         }
 
+        /*
         .footer-note {
             margin-top: 30px;
             font-size: 14px;
@@ -136,19 +139,7 @@
             padding-top: 15px;
             text-align: center;
         }
-
-        @media (max-width: 600px) {
-            .container {
-                padding: 15px;
-            }
-
-            table,
-            tr,
-            td {
-                font-size: 14px;
-            }
-        }
-
+*/
         /* ===== КНОПКИ ===== */
 
         .actions {
@@ -161,12 +152,13 @@
         }
 
         .btn {
+            box-sizing: border-box;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
             font-family: "Sansation", Arial, sans-serif;
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 700;
             line-height: 1;
             letter-spacing: 0.2px;
@@ -174,8 +166,8 @@
             background: linear-gradient(135deg, #0088e6 0%, #005b9f 100%);
             border: none;
             border-radius: 10px;
-            padding: 15px 30px;
-            min-height: 52px;
+            padding: 5px 30px;
+            min-height: 35px;
             cursor: pointer;
             text-decoration: none;
             text-align: center;
@@ -215,25 +207,11 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 12px;
+            gap: 2px;
             margin: 45px 0 25px;
             text-align: center;
         }
 
-        .btn-pay {
-            font-size: 22px;
-            padding: 22px 70px;
-            min-height: 70px;
-            border-radius: 14px;
-            min-width: 340px;
-            max-width: 100%;
-            background: linear-gradient(135deg, #0088e6 0%, #00539b 100%);
-            box-shadow: 0 10px 26px rgba(0, 119, 204, 0.38);
-        }
-
-        .btn-pay:hover {
-            box-shadow: 0 14px 34px rgba(0, 119, 204, 0.46);
-        }
 
         .btn-pay .btn-icon {
             font-size: 24px;
@@ -244,41 +222,6 @@
             color: #666;
             font-family: "Jura", Arial, sans-serif;
             margin: 0;
-        }
-
-        /* Выравниваем высоту */
-        .btn {
-            box-sizing: border-box;
-            /* <-- добавить */
-            /* остальные свойства без изменений */
-        }
-
-        /* Светло-серые кнопки скачивания */
-        .actions .btn {
-            background: #e9e9e9;
-            color: #333;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        }
-
-        .actions .btn:hover {
-            background: #dcdcdc;
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-            filter: none;
-            /* чтобы не затемнялось градиентом */
-        }
-
-        .actions .btn:active {
-            background: #d0d0d0;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .actions .btn:focus-visible {
-            outline: 3px solid rgba(0, 0, 0, 0.25);
-        }
-
-        /* Общее для всех кнопок — выравнивает высоту */
-        .btn {
-            box-sizing: border-box;
         }
 
         /* ===== Кнопки скачивания: чуть темнее + градиент ===== */
@@ -307,6 +250,12 @@
 
         /* ===== Синяя кнопка оплаты: блик и усиленная тень ===== */
         .btn-pay {
+            font-size: 22px;
+            padding: 10px 70px;
+            min-height: 45px;
+            border-radius: 14px;
+            min-width: 340px;
+            max-width: 100%;
             position: relative;
             overflow: hidden;
             /* Более сочный градиент + внутренний блик сверху */
@@ -382,6 +331,238 @@
                 min-width: 0;
                 width: 100%;
             }
+
+            .bottom-panel {
+                left: 0;
+                bottom: 0;
+                transform: none;
+                width: 100%;
+                max-width: 100%;
+                padding: 14px 14px calc(14px + env(safe-area-inset-bottom, 0px));
+                border-radius: 24px 24px 0 0;
+            }
+
+            body {
+                padding-bottom: 220px;
+            }
+        }
+
+        /* ===== Фиксированная нижняя панель ===== */
+        .bottom-panel {
+            position: fixed;
+            left: 50%;
+            bottom: 8px;
+            transform: translateX(-50%);
+            z-index: 1000;
+
+            /* размер по содержимому */
+            width: max-content;
+            max-width: calc(100vw - 32px);
+            box-sizing: border-box;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+
+            padding: 20px 48px;
+            padding-top: 14px;
+            background: #fff;
+            border-radius: 28px;
+            /* заметно скруглённые углы */
+            box-shadow:
+                0 18px 45px rgba(0, 0, 0, 0.18),
+                0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+        }
+
+        /* Убираем внешние отступы у вложенных блоков, чтобы не раздували панель */
+        .bottom-panel .actions,
+        .bottom-panel .pay-block {
+            margin: 0;
+            width: 100%;
+        }
+
+
+        /* ===== Подсветка ошибки у чекбокса ===== */
+        .pay-note.error,
+        .pay-note.error input[type="checkbox"] {
+            color: #8b0000;
+            /* тёмно-красный */
+            accent-color: #8b0000;
+            /* красная галочка при включении */
+        }
+
+        .pay-note.error input[type="checkbox"] {
+            outline: 2px solid #8b0000;
+            /* красная рамка у невыбранного */
+            outline-offset: 1px;
+            border-radius: 3px;
+        }
+
+        /* ===== Модалка ===== */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-box {
+            background: #fff;
+            border-radius: 20px;
+            padding: 28px 34px 22px;
+            max-width: 420px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: modal-pop 0.25s ease;
+        }
+
+        @keyframes modal-pop {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .modal-text {
+            font-family: "Jura", Arial, sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: #222;
+            line-height: 1.5;
+            margin: 0 0 8px;
+        }
+
+        /* Большая зелёная стрелка вниз */
+        .modal-arrow {
+            font-size: 64px;
+            line-height: 1;
+            color: #16a34a;
+            margin: 6px 0 16px;
+            display: inline-block;
+            animation: arrow-bounce 1s ease-in-out infinite;
+        }
+
+        @keyframes arrow-bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(12px);
+            }
+        }
+
+        .modal-ok {
+            font-family: "Sansation", Arial, sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: #fff;
+            background: linear-gradient(180deg, #2fa4ff 0%, #0077cc 100%);
+            border: none;
+            border-radius: 10px;
+            padding: 12px 44px;
+            min-height: 46px;
+            cursor: pointer;
+            box-shadow: 0 6px 18px rgba(0, 119, 204, 0.35);
+            transition: transform 0.15s ease, filter 0.15s ease;
+        }
+
+        .modal-ok:hover {
+            filter: brightness(1.06);
+            transform: translateY(-1px);
+        }
+
+        .modal-ok:active {
+            transform: translateY(0);
+            filter: brightness(0.95);
+        }
+
+        /* ===== Кнопка оплаты: зелёная, когда галочка стоит ===== */
+        .btn-pay.agreed {
+            background: linear-gradient(180deg, #4ade80 0%, #16a34a 45%, #15803d 100%);
+            box-shadow:
+                0 10px 28px rgba(22, 163, 74, 0.45),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5);
+        }
+
+        .btn-pay.agreed:hover {
+            box-shadow:
+                0 14px 34px rgba(22, 163, 74, 0.55),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6);
+        }
+
+        .btn-pay.agreed:active {
+            box-shadow: 0 3px 10px rgba(22, 163, 74, 0.4);
+        }
+
+        .btn-pay.agreed:focus-visible {
+            outline: 3px solid rgba(22, 163, 74, 0.5);
+            outline-offset: 3px;
+        }
+
+        /* ===== Кнопка оплаты: состояние загрузки ===== */
+        .btn-pay.is-loading {
+            pointer-events: none;
+            cursor: default;
+            opacity: 0.9;
+            filter: saturate(0.9);
+        }
+
+        .btn-pay.is-loading:hover,
+        .btn-pay.is-loading:active {
+            transform: none;
+            filter: saturate(0.9);
+            box-shadow:
+                0 10px 28px rgba(0, 119, 204, 0.48),
+                inset 0 1px 0 rgba(255, 255, 255, 0.45);
+        }
+
+        /* Прячем пробегающий блик, пока идёт загрузка */
+        .btn-pay.is-loading::after {
+            animation: none;
+            opacity: 0;
+        }
+
+        /* Анимированное колёсико */
+        .spinner {
+            display: inline-block;
+            width: 22px;
+            height: 22px;
+            border: 3px solid rgba(255, 255, 255, 0.35);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            box-sizing: border-box;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Кнопка <a> как disabled — чтобы не сработал переход повторно */
+        a.btn.disabled {
+            pointer-events: none;
         }
     </style>
 </head>
@@ -957,26 +1138,42 @@
 
 
     <!-- ===== Кнопки скачивания ===== -->
-    <div class="actions">
-        <button type="button" class="btn" onclick="downloadDocx()">
-            <span class="btn-icon">📄</span> Скачать DOCX
-        </button>
 
-        <a class="btn pdfd" href="#" download target="_blank" rel="noopener">
-            <span class="btn-icon">💾</span> Скачать PDF
-        </a>
+    <div class="bottom-panel">
+
+        <div class="actions">
+            <button type="button" class="btn" onclick="downloadDocx()">
+                <span class="btn-icon">📄</span> Скачать DOCX
+            </button>
+
+            <a class="btn pdfd" href="#" download target="_blank" rel="noopener">
+                <span class="btn-icon">💾</span> Скачать PDF
+            </a>
+        </div>
+
+        <!-- ===== Кнопка оплаты ===== -->
+        <div class="pay-block">
+            <a class="btn btn-pay pay-link" id="payButton" target="_top">
+                <span class="btn-icon">💳</span> Перейти к оплате
+            </a>
+            <p class="pay-note" id="payNote">
+                <small>( Оплата означает акцепт условий настоящей оферты )</small>
+                <br><input type="checkbox" id="acceptCheckbox">
+                Поддтверждаю прочтение и принятие мной условий
+            </p>
+        </div>
+
     </div>
-
-    <!-- ===== Кнопка оплаты ===== -->
-    <div class="pay-block">
-        <a class="btn btn-pay pay-link" href="#" id="payButton" target="_top">
-            <span class="btn-icon">💳</span> Перейти к оплате
-        </a>
-        <p class="pay-note">Оплата означает акцепт условий настоящей оферты</p>
+    <!-- ===== Модалка «примите условия» ===== -->
+    <div class="modal-overlay" id="acceptModal">
+        <div class="modal-box" role="dialog" aria-modal="true">
+            <p class="modal-text">
+                Необходимо принять условия договора(ов), поставив галочку под кнопкой
+            </p>
+            <div class="modal-arrow">⬇</div>
+            <button type="button" class="modal-ok" id="modalOk">Ок</button>
+        </div>
     </div>
-
-
-
 
     <script>
         function downloadDocx() {
@@ -987,10 +1184,79 @@
     </script>
 </body>
 <script>
+    const acceptCheckbox = document.getElementById('acceptCheckbox');
+    const payNote = document.getElementById('payNote');
+    const acceptModal = document.getElementById('acceptModal');
+    const modalOk = document.getElementById('modalOk');
+    const payButton = document.getElementById('payButton');
+
+    // Переключение цвета кнопки оплаты: выбрано → зелёная, снято → синяя
+    function updatePayButton() {
+        payButton.classList.toggle('agreed', acceptCheckbox.checked);
+    }
+
+    // Клик по кнопке оплаты
+    // Сохраняем исходное содержимое кнопки один раз при загрузке страницы
+    const payButtonOriginalHTML = payButton.innerHTML;
+
+    payButton.addEventListener('click', function (e) {
+        // 1. Галочка не стоит — блокируем, красим, показываем модалку
+        if (!acceptCheckbox.checked) {
+            e.preventDefault();
+            payNote.classList.add('error');
+            acceptModal.classList.add('active');
+            return;
+        }
+
+        // 2. Всё ок — переводим кнопку в состояние загрузки
+        payNote.classList.remove('error');
+
+        payButton.classList.add('is-loading', 'disabled');
+        payButton.setAttribute('aria-disabled', 'true');
+        payButton.setAttribute('aria-busy', 'true');
+
+        payButton.innerHTML =
+            '<span class="spinner" aria-hidden="true"></span>' +
+            'Открываем страницу оплаты…';
+
+        // 3. Через 5 секунд возвращаем кнопку в исходное состояние
+        setTimeout(function () {
+            payButton.classList.remove('is-loading', 'disabled');
+            payButton.removeAttribute('aria-disabled');
+            payButton.removeAttribute('aria-busy');
+            payButton.innerHTML = payButtonOriginalHTML;
+        }, 5000);
+        window.location.href = document.pay_url;
+    });
+
+    // Галочка: убираем подсветку ошибки и меняем цвет кнопки
+    acceptCheckbox.addEventListener('change', function () {
+        if (acceptCheckbox.checked) {
+            payNote.classList.remove('error');
+        }
+        updatePayButton();
+    });
+
+    // Закрытие модалки
+    modalOk.addEventListener('click', function () {
+        acceptModal.classList.remove('active');
+    });
+    acceptModal.addEventListener('click', function (e) {
+        if (e.target === acceptModal) {
+            acceptModal.classList.remove('active');
+        }
+    });
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') acceptModal.classList.remove('active');
+    });
+
+    // Инициализация при загрузке (на случай автозаполнения/восстановления формы)
+    updatePayButton();</script>
+<script>
     const link = document.querySelector('a.pdfd');
     link.setAttribute('href', document.pdff);
-    const pay_link = document.querySelector('a#payButton');
-    pay_link.setAttribute('href', document.pay_url);
+    // const pay_link = document.querySelector('a#payButton');
+    // pay_link.setAttribute('href', document.pay_url);
 </script>
 
 </html>
